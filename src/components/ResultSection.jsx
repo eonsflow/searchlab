@@ -1,6 +1,5 @@
 import React from "react";
 
-// ✅ onRequestPing prop 추가
 const ResultSection = ({ total, registered, failed, successList, failedList, onRequestPing }) => {
   return (
     <div className="mt-8 space-y-6">
@@ -12,7 +11,7 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
         {failed > 0 && <p>⚠️ {failed}건은 등록 실패했습니다.</p>}
       </div>
 
-      {/* 🚀 색인 요청 버튼 (조건부 노출) */}
+      {/* 🚀 색인 요청 버튼 */}
       {failed > 0 && onRequestPing && (
         <button
           onClick={onRequestPing}
@@ -23,30 +22,32 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
       )}
 
       {/* ✅ 등록 성공 리스트 */}
-      <div>
-        <h3 className="text-green-600 font-semibold mb-2">✅ 등록 완료 ({successList.length}건)</h3>
-        <ul className="space-y-2">
-          {successList.map((item, i) => (
-            <li key={i} className="p-3 border border-green-300 rounded-md text-sm bg-green-50">
-              <p className="font-medium text-gray-800 truncate">{item.url}</p>
-              <p className="text-xs mt-1 text-green-700">
-                Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {successList.length > 0 && (
+        <div>
+          <h3 className="text-green-600 font-semibold mb-2">✅ 등록 완료 목록 ({successList.length}건)</h3>
+          <ul className="space-y-2">
+            {successList.map((item, i) => (
+              <li key={i} className="p-3 border border-green-300 rounded-md text-sm bg-green-50">
+                <p className="font-medium text-gray-800 break-all">{item.url}</p>
+                <p className="text-xs mt-1 text-green-700">
+                  Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"} | Naver: {item.naver ? "✅" : "❌"}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* ❌ 등록 실패 리스트 */}
       {failedList.length > 0 && (
         <div>
-          <h3 className="text-red-500 font-semibold mb-2">❌ 등록 실패 ({failedList.length}건)</h3>
+          <h3 className="text-red-500 font-semibold mb-2">❌ 등록 실패 목록 ({failedList.length}건)</h3>
           <ul className="space-y-2">
             {failedList.map((item, i) => (
               <li key={i} className="p-3 border border-red-300 rounded-md text-sm bg-red-50">
-                <p className="font-medium text-gray-800 truncate">{item.url}</p>
+                <p className="font-medium text-gray-800 break-all">{item.url}</p>
                 <p className="text-xs mt-1 text-red-600">
-                  Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"}
+                  Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"} | Naver: {item.naver ? "✅" : "❌"}
                 </p>
               </li>
             ))}
