@@ -46,10 +46,10 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
         </div>
       )}
 
-      {/* ❌ 등록 실패 리스트 */}
+      {/* ❌ 색인되지 않은 글 (등록 전 실패 상태 포함) */}
       {failedList.length > 0 && (
         <div>
-          <h3 className="text-red-500 font-semibold mb-2">❌ 등록 실패 목록 ({failedList.length}건)</h3>
+          <h3 className="text-red-500 font-semibold mb-2">❌ 색인되지 않은 글 목록 ({failedList.length}건)</h3>
           <ul className="space-y-2">
             {failedList.map((item, i) => {
               const url = typeof item === "string" ? item : item.url;
