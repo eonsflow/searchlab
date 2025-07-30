@@ -138,6 +138,12 @@ exports.handler = async (event) => {
       pingCount++;
     }
 
+    // ✅ 색인 실패 목록 로그로 출력
+    if (failed.length > 0) {
+      console.log("❌ 색인되지 않은 URL 목록:");
+      failed.forEach((f, i) => console.log(`${i + 1}. ${f.url}`));
+    }
+
     if (success.length === 0) {
       return {
         statusCode: 404,
@@ -149,7 +155,8 @@ exports.handler = async (event) => {
             feed: foundFeed,
             total: postUrls.length,
             failed: failed.length,
-            failedList: failed
+            failedList: failed,
+            failedText: failed.map((f, i) => `${i + 1}. ${f.url}`).join("\n"),
           }
         }),
       };
@@ -175,6 +182,7 @@ exports.handler = async (event) => {
         failed: failed.length,
         successList: success,
         failedList: failed,
+        failedText: failed.map((f, i) => `${i + 1}. ${f.url}`).join("\n"),
         summary: `총 ${postUrls.length}건 중 ${success.length}건 등록됨`
       })
     };
