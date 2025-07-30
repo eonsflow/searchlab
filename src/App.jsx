@@ -26,14 +26,12 @@ function App() {
     if (current) setUser(current);
   }, []);
 
-  // ✅ Netlify Identity 토큰 가져오는 함수
   const getToken = async () => {
     const user = netlifyIdentity.currentUser();
     if (!user) throw new Error("로그인 필요");
     return user.token.access_token;
   };
 
-  // 🔄 날짜별 Firestore 등록 기록
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -162,7 +160,15 @@ function App() {
         ...resultData,
         registered: resultData.registered + data.registered,
         failed: data.failed,
-        successList: [...resultData.successList, ...data.successList],
+        successList: [
+          ...resultData.successList,
+          ...data.successList.map((url) => ({
+            url,
+            google: true,
+            bing: true,
+            naver: true,
+          })),
+        ],
         failedList: data.failedList,
       });
 
@@ -176,9 +182,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-blue-100 p-6">
-      <h1 className="text-2xl font-bold mb-4 text-blue-900">
-        🔐 검색 누락 글 자동 등록
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-blue-900">🔐 검색 누락 글 자동 등록</h1>
       <AuthSection onUserChange={setUser} />
       <div className="text-right mb-4">
         {user ? (
@@ -222,8 +226,20 @@ function App() {
           total={resultData.total}
           registered={resultData.registered}
           failed={resultData.failed}
-          successList={resultData.successList}
-          failedList={resultData.failedList}
+          successList={
+            resultData.successList.map((item) =>
+              typeof item === "string"
+                ? { url: item, google: true, bing: true, naver: true }
+                : item
+            )
+          }
+          failedList={
+            resultData.failedList.map((item) =>
+              typeof item === "string"
+                ? { url: item, google: false, bing: false, naver: false }
+                : item
+            )
+          }
           onRequestPing={handleRequestPing}
         />
       )}
