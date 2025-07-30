@@ -32,11 +32,15 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
               const bing = typeof item === "object" ? item.bing : undefined;
               const naver = typeof item === "object" ? item.naver : undefined;
               return (
-                <li key={i} className="p-3 border border-green-300 rounded-md text-sm bg-green-50">
-                  <p className="font-medium text-gray-800 break-all">{url}</p>
+                <li key={i} className="p-4 border border-green-300 rounded-md text-sm bg-green-50">
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-700 underline break-all">
+                    🔗 {url}
+                  </a>
                   {google !== undefined && (
                     <p className="text-xs mt-1 text-green-700">
-                      Google: {google ? "✅" : "❌"} | Bing: {bing ? "✅" : "❌"} | Naver: {naver ? "✅" : "❌"}
+                      Google: {google ? "✅ 등록됨" : "❌ 미등록"} &nbsp;|&nbsp;
+                      Bing: {bing ? "✅ 등록됨" : "❌ 미등록"} &nbsp;|&nbsp;
+                      Naver: {naver ? "✅ 등록됨" : "❌ 미등록"}
                     </p>
                   )}
                 </li>
@@ -57,11 +61,15 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
               const bing = typeof item === "object" ? item.bing : undefined;
               const naver = typeof item === "object" ? item.naver : undefined;
               return (
-                <li key={i} className="p-3 border border-red-300 rounded-md text-sm bg-red-50">
-                  <p className="font-medium text-gray-800 break-all">{url}</p>
+                <li key={i} className="p-4 border border-red-300 rounded-md text-sm bg-red-50">
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="font-medium text-blue-700 underline break-all">
+                    🔗 {url}
+                  </a>
                   {google !== undefined && (
                     <p className="text-xs mt-1 text-red-600">
-                      Google: {google ? "✅" : "❌"} | Bing: {bing ? "✅" : "❌"} | Naver: {naver ? "✅" : "❌"}
+                      Google: {google ? "✅ 등록됨" : "❌ 미등록"} &nbsp;|&nbsp;
+                      Bing: {bing ? "✅ 등록됨" : "❌ 미등록"} &nbsp;|&nbsp;
+                      Naver: {naver ? "✅ 등록됨" : "❌ 미등록"}
                     </p>
                   )}
                 </li>
