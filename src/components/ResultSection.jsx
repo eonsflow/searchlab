@@ -26,14 +26,22 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
         <div>
           <h3 className="text-green-600 font-semibold mb-2">✅ 등록 완료 목록 ({successList.length}건)</h3>
           <ul className="space-y-2">
-            {successList.map((item, i) => (
-              <li key={i} className="p-3 border border-green-300 rounded-md text-sm bg-green-50">
-                <p className="font-medium text-gray-800 break-all">{item.url}</p>
-                <p className="text-xs mt-1 text-green-700">
-                  Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"} | Naver: {item.naver ? "✅" : "❌"}
-                </p>
-              </li>
-            ))}
+            {successList.map((item, i) => {
+              const url = typeof item === "string" ? item : item.url;
+              const google = typeof item === "object" ? item.google : undefined;
+              const bing = typeof item === "object" ? item.bing : undefined;
+              const naver = typeof item === "object" ? item.naver : undefined;
+              return (
+                <li key={i} className="p-3 border border-green-300 rounded-md text-sm bg-green-50">
+                  <p className="font-medium text-gray-800 break-all">{url}</p>
+                  {google !== undefined && (
+                    <p className="text-xs mt-1 text-green-700">
+                      Google: {google ? "✅" : "❌"} | Bing: {bing ? "✅" : "❌"} | Naver: {naver ? "✅" : "❌"}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
@@ -43,14 +51,22 @@ const ResultSection = ({ total, registered, failed, successList, failedList, onR
         <div>
           <h3 className="text-red-500 font-semibold mb-2">❌ 등록 실패 목록 ({failedList.length}건)</h3>
           <ul className="space-y-2">
-            {failedList.map((item, i) => (
-              <li key={i} className="p-3 border border-red-300 rounded-md text-sm bg-red-50">
-                <p className="font-medium text-gray-800 break-all">{item.url}</p>
-                <p className="text-xs mt-1 text-red-600">
-                  Google: {item.google ? "✅" : "❌"} | Bing: {item.bing ? "✅" : "❌"} | Naver: {item.naver ? "✅" : "❌"}
-                </p>
-              </li>
-            ))}
+            {failedList.map((item, i) => {
+              const url = typeof item === "string" ? item : item.url;
+              const google = typeof item === "object" ? item.google : undefined;
+              const bing = typeof item === "object" ? item.bing : undefined;
+              const naver = typeof item === "object" ? item.naver : undefined;
+              return (
+                <li key={i} className="p-3 border border-red-300 rounded-md text-sm bg-red-50">
+                  <p className="font-medium text-gray-800 break-all">{url}</p>
+                  {google !== undefined && (
+                    <p className="text-xs mt-1 text-red-600">
+                      Google: {google ? "✅" : "❌"} | Bing: {bing ? "✅" : "❌"} | Naver: {naver ? "✅" : "❌"}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
