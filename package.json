@@ -1,0 +1,22 @@
+{
+  "name": "searchlab-deploy",
+  "version": "1.0.0",
+  "description": "Netlify site to auto-submit blog URLs to search engines",
+  "scripts": {
+    "build": "npm install && vite build"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "firebase-admin": "^13.4.0",
+    "fs-extra": "^11.1.1",
+    "rss-parser": "^3.13.0",
+    "sass": "^1.75.0"
+  },
+  "engines": {
+    "node": "22.17.1"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^7.0.6"
+  }
+}
